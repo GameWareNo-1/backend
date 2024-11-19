@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
+from django.contrib.auth.models import PermissionsMixin
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, password=None):
@@ -17,7 +18,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -26,3 +27,11 @@ class CustomUser(AbstractBaseUser):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'username'
+
+    def has_perm(self, perm, obj=None):
+        # Allow all permissions if the user is an admin
+        return self.is_admin
+
+    def has_module_perms(self, app_label):
+        # Allow access to any app if the user is an admin
+        return self.is_admin
