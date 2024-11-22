@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "Auth",
     
     "djoser",
+    "cafe",
 ]
 
 DJOSER = {
