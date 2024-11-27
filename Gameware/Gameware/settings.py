@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,18 +43,19 @@ INSTALLED_APPS = [
     
     "djoser",
     "cafe",
-    "rest_framework"
+    "rest_framework",
+    'rest_framework.authtoken',
+
 ]
 
-DJOSER = {
-    'USER_ID_FIELD': 'username',
-    'LOGIN_FIELD': 'username',
-    'SERIALIZERS': {
-        'user_create': 'djoser.serializers.UserCreateSerializer',
-        'user': 'djoser.serializers.UserSerializer',
-    },
-}
-AUTH_USER_MODEL = 'Auth.CustomUser'
+# DJOSER = {
+#     'USER_ID_FIELD': 'username',
+#     'LOGIN_FIELD': 'username',
+#     'SERIALIZERS': {
+#         'user_create': 'djoser.serializers.UserCreateSerializer',
+#         'user': 'djoser.serializers.UserSerializer',
+#     },
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -137,6 +139,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 REST_FRAMEWORK = {
-    'COERCE_DECIMAL_TO_STRING' : False
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Customize as needed
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),      # Customize as needed
+    'AUTH_HEADER_TYPES': ('Bearer',),                  # Use Bearer token type
 }
