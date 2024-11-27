@@ -1,9 +1,20 @@
 from rest_framework import serializers
-from cafe.models import Recipe
-from decimal import Decimal
-class RecipeSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    title = serializers.CharField(max_length=255)
-    unit_price = serializers.DecimalField(max_digits=6, decimal_places=2)   
+from cafe.models import RecipeItem, Ingredient, Recipe
 
-        
+class IngredientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+        fields = ['id', 'title', 'description']
+
+class RecipeItemSerializer(serializers.ModelSerializer):
+    ingredient = IngredientSerializer()
+
+    class Meta:
+        model = RecipeItem
+        fields = ['id', 'ingredient', 'quantity']
+class RecipeSerializer(serializers.ModelSerializer):
+    items = RecipeItemSerializer(source='recipeitem_set', many=True) # Assuming the reverse relation is named 'recipeitem_set'
+
+    class Meta:
+        model = Recipe
+        fields = ['id', 'title', 'unit_price', 'items']
