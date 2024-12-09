@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Auth.views import CustomAuthToken
+from rest_framework.routers import DefaultRouter
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cafe/', include('cafe.urls')),
-    # path('auth/', include('djoser.urls')),
-    # path('auth/jwt/', include('djoser.urls.jwt')),  # JWT endpoints    ]
     path('auth/',include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
+    path("message/", include("support.urls"))
 ]
