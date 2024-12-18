@@ -1,6 +1,8 @@
 {
-    "platform": "django",
-    "django": {
-      "pythonVersion": "3.11"
-    }
-  }
+  "app": "gameware",
+  "port": 80,
+  "build": {
+    "location": "iran"
+  },
+  "disks": []
+}
