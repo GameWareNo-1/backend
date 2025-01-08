@@ -1,5 +1,5 @@
 {
-  "platform":"django",
+  "platform":"djangp",
   "app": "gameware",
   "port": 8000,
   "build": {
