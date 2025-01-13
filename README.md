@@ -22,7 +22,12 @@ Then install the dependencies:
 ```
 Note the `(.venv)` in front of the prompt. This indicates that this terminal
 
-Once `pip` has finished downloading the dependencies:
+Once `pip` has finished downloading the dependencies make migrations and migrate:
+```sh
+(.venv)$ python manage.py makemigrations
+(.venv)$ python manage.py migrate
+```
+Finally run the server
 ```sh
 (.venv)$ python manage.py runserver
 ```
