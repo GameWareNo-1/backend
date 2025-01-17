@@ -26,4 +26,6 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),  # Optional: Token-based authentication
     path('levels/', level_list, name='level-list'),
     path('levels/<int:pk>/', level_detail, name='level-detail'),
+    path('leaderboard/', include('leaderboard.urls')),  # API endpoints
+
 ]
