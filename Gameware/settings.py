@@ -69,7 +69,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
-CORS_ALLOWED_ORIGINS ='*'
+CORS_ALLOW_ALL_ORIGINS = True
 ROOT_URLCONF = 'Gameware.urls'
 
 TEMPLATES = [
