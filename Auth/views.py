@@ -1,24 +1,3 @@
-# Create your views here.
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.http import HttpResponse
-def is_manager(user):
-    return user.groups.filter(name='Manager').exists()
-
-def is_player(user):
-    return user.groups.filter(name='Player').exists()
-
-@login_required
-@user_passes_test(is_manager)
-def manager_dashboard(request):
-    return HttpResponse("Welcome, Manager!")
-
-@login_required
-@user_passes_test(is_player)
-def player_dashboard(request):
-    return HttpResponse("Welcome, Player!")
-
-
-
 from rest_framework.response import Response
 from django.contrib.auth.models import Group
 from .models import CustomUser
@@ -43,18 +22,6 @@ class PlayerRegistrationView(APIView):
 
         return Response({'message': f'Player user {username} created successfully.'}, status=status.HTTP_201_CREATED)
 
-        """
-        
-        {
-            "username": "player",
-            "password": "password",
-            "email": "aa@aa.cc"
-        }
-        
-        """
-        
-        
-
 class ManagerRegistrationView(APIView):
     def post(self, request):
         username = request.data.get('username')
@@ -74,3 +41,14 @@ class ManagerRegistrationView(APIView):
         return Response({'message': f'Manager user {username} created successfully.'}, status=status.HTTP_201_CREATED)
 
     
+        """
+        
+        {
+            "username": "player",
+            "password": "password",
+            "email": "aa@aa.cc"
+        }
+        
+        """
+        
+            
