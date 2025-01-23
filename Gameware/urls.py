@@ -13,4 +13,6 @@ urlpatterns = [
     path('levels/', level_list, name='level-list'),
     path('levels/<int:pk>/', level_detail, name='level-detail'),
     path('game/', include('game.urls')),
+    path("messages/", include("support.urls")),
+
 ]

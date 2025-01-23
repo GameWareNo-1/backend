@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "Auth",
     "level",
     "game",
-    # "support",
+    "support",
 ]
 
 # DJOSER = {
