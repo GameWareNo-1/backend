@@ -4,4 +4,4 @@ from Auth.models import CustomUser
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'username']
+        fields = ['id', 'username', "aggregate_score"]
