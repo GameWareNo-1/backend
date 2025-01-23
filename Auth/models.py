@@ -8,3 +8,4 @@ class CustomUser(AbstractUser):
         ('player', 'Player'),
     )
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
+    aggregate_score  = models.DecimalField(max_digits=5, decimal_places=2, default=0)
