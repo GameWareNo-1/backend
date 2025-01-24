@@ -34,3 +34,19 @@ class UserRegistrationTests(APITestCase):
         response = self.client.post('/player/register/', data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('error', response.data)
+
+
+    def test_manager_registration_success(self):
+        # Test successful manager registration
+        data = {
+            'username': 'manager1',
+            'password': 'password123',
+            'email': 'manager1@example.com',
+        }
+        response = self.client.post('/manager/register/', data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['message'], f"Manager user {data['username']} created successfully.")
+        self.assertTrue(CustomUser.objects.filter(username=data['username']).exists())
+        manager = CustomUser.objects.get(username=data['username'])
+        self.assertEqual(manager.user_type, 'manager')
+        self.assertTrue(manager.groups.filter(name='Manager').exists())
