@@ -26,3 +26,11 @@ class UserRegistrationTests(APITestCase):
         player = CustomUser.objects.get(username=data['username'])
         self.assertEqual(player.user_type, 'player')
         self.assertTrue(player.groups.filter(name='Player').exists())
+
+
+    def test_player_registration_missing_fields(self):
+        # Test player registration with missing fields
+        data = {'username': 'player2'}
+        response = self.client.post('/player/register/', data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('error', response.data)
