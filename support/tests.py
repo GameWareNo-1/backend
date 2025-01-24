@@ -5,3 +5,4 @@ from .models import Message
 from rest_framework.reverse import reverse
 
 # Create your tests here.
+class SupportAppTests(APITestCase):
