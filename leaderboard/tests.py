@@ -51,7 +51,7 @@ class LeaderboardTests(APITestCase):
     # Test GET method when no players exist
     def test_leaderboard_with_no_players(self):
         
-        Player.objects.all().delete()  # Delete all players
-        response = self.client.get('/top-score/')  # Updated endpoint
+        Player.objects.all().delete()  # Clear all players
+        response = self.client.get('/leaderboard/top-score/')  # Updated endpoint
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 0)
