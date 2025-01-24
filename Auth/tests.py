@@ -22,7 +22,7 @@ class UserRegistrationTests(APITestCase):
             'email': 'player1@example.com',
         }
 
-        response = self.client.post('/player/register/', data)
+        response = self.client.post('/custom-auth/register/player/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['message'], f"Player user {data['username']} created successfully.")
         self.assertTrue(CustomUser.objects.filter(username=data['username']).exists())
