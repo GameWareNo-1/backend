@@ -33,3 +33,12 @@ class SupportAppTests(APITestCase):
         self.assertEqual(Message.objects.count(), 2)  # There should now be 2 messages
         self.assertEqual(response.data['message'], 'This is a new message')
         self.assertEqual(response.data['user'], self.user.id)
+
+
+    def test_create_message_unauthenticated(self):
+        # Test that unauthenticated user cannot create a message
+        data = {'message': 'This is a new message'}
+        response = self.client.post(self.create_url, data)
+        
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(Message.objects.count(), 1)
