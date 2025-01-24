@@ -22,3 +22,12 @@ class LeaderboardTests(APITestCase):
         self.assertEqual(len(response.data), 5)  # We only have 5 players in the DB
         self.assertEqual(response.data[0]['name'], 'Player5')  # Top player should have highest score
         self.assertEqual(response.data[1]['name'], 'Player3')  # Next in line
+
+
+    def test_submit_score_post_success(self):
+        # Test POST method to submit a new player's score
+        data = {'name': 'Player6', 'score': 250}
+        response = self.client.post('/submit_score/', data)  # Update with actual endpoint if different
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['name'], 'Player6')
+        self.assertEqual(response.data['score'], 250)
