@@ -97,6 +97,7 @@ AUTH_USER_MODEL = 'Auth.CustomUser'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 load_dotenv()
 
 DATABASES = {

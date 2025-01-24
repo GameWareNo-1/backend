@@ -7,6 +7,7 @@ class LevelSerializer(serializers.ModelSerializer):
         if not isinstance(value, list):
             raise ValidationError("Materials must be a list.")
         return value
+    
     def validate_target(self, value):
         if sum(value.values()) != 4:
             raise ValidationError("Sum of target values must equal 4.")

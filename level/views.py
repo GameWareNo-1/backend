@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from .models import Level
 from .serializers import LevelSerializer
 
+
 class LevelViewSet(viewsets.ViewSet):
     def list(self, request):
         levels = Level.objects.all()

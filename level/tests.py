@@ -3,6 +3,7 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from .models import Level
 
+
 class LevelAPITestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
