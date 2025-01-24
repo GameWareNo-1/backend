@@ -76,3 +76,11 @@ class SupportAppTests(APITestCase):
         # Verify the message in the database has been updated with the reply
         message = Message.objects.get(pk=self.message.pk)
         self.assertEqual(message.reply, 'This is a reply to the message')
+
+
+    def test_reply_message_unauthenticated(self):
+        # Test that unauthenticated user cannot reply to a message
+        data = {'reply': 'This is a reply'}
+        response = self.client.put(self.reply_url, data)
+        
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
