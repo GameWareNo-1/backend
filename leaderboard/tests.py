@@ -36,3 +36,10 @@ class LeaderboardTests(APITestCase):
         # Verify that the new player has been added to the database
         player = Player.objects.get(name='Player6')
         self.assertEqual(player.score, 250)
+
+    def test_submit_score_post_failure(self):
+        # Test POST method with invalid data (missing 'name' field)
+        data = {'score': 250}
+        response = self.client.post('/submit_score/', data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('name', response.data)
