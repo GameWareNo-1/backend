@@ -54,4 +54,10 @@ class SupportAppTests(APITestCase):
         self.assertEqual(len(response.data), 1)  # Only one message should exist
         self.assertEqual(response.data[0]['message'], self.message.message)
 
+
+
+    def test_list_messages_unauthenticated(self):
+        # Test that unauthenticated user cannot list messages
+        response = self.client.get(self.list_url)
         
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
