@@ -4,3 +4,5 @@ from django.contrib.auth.models import Group
 from .models import CustomUser
 
 # Create your tests here.
+class UserRegistrationTests(APITestCase):
+    
