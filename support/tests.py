@@ -21,3 +21,15 @@ class SupportAppTests(APITestCase):
         self.create_url = reverse('create-message')
         self.list_url = reverse('list-message')
         self.reply_url = reverse('reply-message', kwargs={'pk': self.message.pk})
+
+
+    def test_create_message_authenticated(self):
+        # Test that authenticated user can create a message
+        self.client.login(username='user1', password='password123')
+        data = {'message': 'This is a new message'}
+        response = self.client.post(self.create_url, data)
+        
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Message.objects.count(), 2)  # There should now be 2 messages
+        self.assertEqual(response.data['message'], 'This is a new message')
+        self.assertEqual(response.data['user'], self.user.id)
