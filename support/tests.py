@@ -84,3 +84,14 @@ class SupportAppTests(APITestCase):
         response = self.client.put(self.reply_url, data)
         
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+
+    def test_reply_message_not_found(self):
+        # Test replying to a message that doesn't exist (404)
+        self.client.login(username='admin', password='password123')
+        url = reverse('reply-message', kwargs={'pk': 999})  # Non-existing message ID
+        data = {'reply': 'This message does not exist'}
+        response = self.client.put(url, data)
+        
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
