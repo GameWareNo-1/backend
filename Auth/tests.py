@@ -49,7 +49,7 @@ class UserRegistrationTests(APITestCase):
             'password': 'password123',
             'email': 'manager1@example.com',
         }
-        response = self.client.post('/manager/register/', data)
+        response = self.client.post('/custom-auth/register/manager/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['message'], f"Manager user {data['username']} created successfully.")
         self.assertTrue(CustomUser.objects.filter(username=data['username']).exists())
