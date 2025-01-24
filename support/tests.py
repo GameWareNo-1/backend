@@ -14,3 +14,10 @@ class SupportAppTests(APITestCase):
         self.admin = get_user_model().objects.create_superuser(username='admin', password='password123')
 
 
+        # Create a sample message for testing reply functionality
+        self.message = Message.objects.create(user=self.user, message="This is a test message", reply=None)
+
+        # URL definitions
+        self.create_url = reverse('create-message')
+        self.list_url = reverse('list-message')
+        self.reply_url = reverse('reply-message', kwargs={'pk': self.message.pk})
