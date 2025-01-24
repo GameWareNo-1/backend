@@ -1,5 +1,4 @@
 from django.urls import path
-
 from leaderboard.views import LeaderboardAPIView, SubmitScoreAPIView
 
 urlpatterns = [
