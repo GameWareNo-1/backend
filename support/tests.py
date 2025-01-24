@@ -22,9 +22,9 @@ class SupportAppTests(APITestCase):
         self.list_url = reverse('list-message')
         self.reply_url = reverse('reply-message', kwargs={'pk': self.message.pk})
 
-
+    # Test that authenticated user can create a message
     def test_create_message_authenticated(self):
-        # Test that authenticated user can create a message
+        
         self.client.login(username='user1', password='password123')
         data = {'message': 'This is a new message'}
         response = self.client.post(self.create_url, data)
@@ -34,9 +34,9 @@ class SupportAppTests(APITestCase):
         self.assertEqual(response.data['message'], 'This is a new message')
         self.assertEqual(response.data['user'], self.user.id)
 
-
+    # Test that unauthenticated user cannot create a message
     def test_create_message_unauthenticated(self):
-        # Test that unauthenticated user cannot create a message
+        
         data = {'message': 'This is a new message'}
         response = self.client.post(self.create_url, data)
         
@@ -44,9 +44,9 @@ class SupportAppTests(APITestCase):
         self.assertEqual(Message.objects.count(), 1)
 
 
-
+    # Test that authenticated user can list all messages
     def test_list_messages_authenticated(self):
-        # Test that authenticated user can list all messages
+        
         self.client.login(username='user1', password='password123')
         response = self.client.get(self.list_url)
         
@@ -55,16 +55,16 @@ class SupportAppTests(APITestCase):
         self.assertEqual(response.data[0]['message'], self.message.message)
 
 
-
+    # Test that unauthenticated user cannot list messages
     def test_list_messages_unauthenticated(self):
-        # Test that unauthenticated user cannot list messages
+        
         response = self.client.get(self.list_url)
         
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-
+    # Test that authenticated user can reply to a message
     def test_reply_message_authenticated(self):
-        # Test that authenticated user can reply to a message
+        
         self.client.login(username='admin', password='password123')
         data = {'reply': 'This is a reply to the message'}
         response = self.client.put(self.reply_url, data)
@@ -77,18 +77,18 @@ class SupportAppTests(APITestCase):
         message = Message.objects.get(pk=self.message.pk)
         self.assertEqual(message.reply, 'This is a reply to the message')
 
-
+    # Test that unauthenticated user cannot reply to a message
     def test_reply_message_unauthenticated(self):
-        # Test that unauthenticated user cannot reply to a message
+        
         data = {'reply': 'This is a reply'}
         response = self.client.put(self.reply_url, data)
         
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-
+    # Test replying to a message that doesn't exist (404)
     def test_reply_message_not_found(self):
-        # Test replying to a message that doesn't exist (404)
+        
         self.client.login(username='admin', password='password123')
         url = reverse('reply-message', kwargs={'pk': 999})  # Non-existing message ID
         data = {'reply': 'This message does not exist'}
