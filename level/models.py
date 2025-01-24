@@ -1,7 +1,7 @@
 from django.db import models
 
 class Level(models.Model):
-    name = models.CharField(max_length=255)  # Optional name for the level
+    name = models.CharField(max_length=255,unique=True)  # Optional name for the level
     time = models.PositiveIntegerField(help_text="Time in seconds")
     materials = models.JSONField(help_text="List of material codes")
     target = models.JSONField(help_text="Target dictionary for materials")
