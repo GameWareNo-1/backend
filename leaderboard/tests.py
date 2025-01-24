@@ -31,3 +31,8 @@ class LeaderboardTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['name'], 'Player6')
         self.assertEqual(response.data['score'], 250)
+
+
+        # Verify that the new player has been added to the database
+        player = Player.objects.get(name='Player6')
+        self.assertEqual(player.score, 250)
