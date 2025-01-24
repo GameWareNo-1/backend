@@ -19,11 +19,11 @@ class LeaderboardTests(APITestCase):
     # Test GET method to fetch the top 10 players
     def test_leaderboard_get(self):
         
-        response = self.client.get('/top-score/')  # Updated endpoint
+        response = self.client.get('/leaderboard/top-score/')  # Updated endpoint
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 5)  # We only have 5 players in the DB
+        self.assertEqual(len(response.data), 5)  # 5 players in the DB
         self.assertEqual(response.data[0]['name'], 'Player5')  # Top player should have highest score
-        self.assertEqual(response.data[1]['name'], 'Player3')  # Next in line
+        self.assertEqual(response.data[1]['name'], 'Player3')
 
 
     # Test POST method to submit a new player's score
