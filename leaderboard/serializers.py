@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import Player
+from .models import UserScore
+from rest_framework import serializers
 
-class PlayerSerializer(serializers.ModelSerializer):
+class UserScoreSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Player
-        fields = ['id', 'name', 'score', 'timestamp']
+        model = UserScore
+        fields = ['username', 'level', 'score']

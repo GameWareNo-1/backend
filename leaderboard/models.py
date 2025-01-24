@@ -1,10 +1,9 @@
 from django.db import models
 
-class Player(models.Model):
-    name = models.CharField(max_length=100)
-    score = models.IntegerField(default=0)
-    timestamp = models.DateTimeField(auto_now_add=True)  # Add this field
+class UserScore(models.Model):
+    username = models.CharField(max_length=100)
+    level = models.IntegerField()
+    score = models.IntegerField()
 
-    def __str__(self):
-        return self.name
-    
+    class Meta:
+        unique_together = ('username', 'level')
