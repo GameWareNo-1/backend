@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+
+from leaderboard.views import LeaderboardAPIView, SubmitScoreAPIView
 
 urlpatterns = [
-    path('top-score/', views.leaderboard, name='top_score'),  # GET
-    path('submit-score/', views.submit_score, name='submit_score'),  # POST
+    path('top-score/', LeaderboardAPIView.as_view(), name='top_score'),  # GET
+    path('submit-score/', SubmitScoreAPIView.as_view(), name='submit_score'),  # POST
 ]
