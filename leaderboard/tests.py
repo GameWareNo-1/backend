@@ -43,3 +43,11 @@ class LeaderboardTests(APITestCase):
         response = self.client.post('/submit_score/', data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('name', response.data)
+
+
+    def test_leaderboard_with_no_players(self):
+        # Test GET method when no players exist
+        Player.objects.all().delete()  # Delete all players
+        response = self.client.get('/leaderboard/')  # Update with actual endpoint if different
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)
