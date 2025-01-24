@@ -61,3 +61,18 @@ class SupportAppTests(APITestCase):
         response = self.client.get(self.list_url)
         
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+    def test_reply_message_authenticated(self):
+        # Test that authenticated user can reply to a message
+        self.client.login(username='admin', password='password123')
+        data = {'reply': 'This is a reply to the message'}
+        response = self.client.put(self.reply_url, data)
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['reply'], 'This is a reply to the message')
+        self.assertIsNotNone(response.data['replied_at'])  # Ensure replied_at is set
+
+        # Verify the message in the database has been updated with the reply
+        message = Message.objects.get(pk=self.message.pk)
+        self.assertEqual(message.reply, 'This is a reply to the message')
