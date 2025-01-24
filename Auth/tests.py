@@ -5,14 +5,17 @@ from .models import CustomUser
 
 # Create your tests here.
 class UserRegistrationTests(APITestCase):
+
+    # Ensure the necessary groups exist before running tests
     def setUp(self):
-        # Ensure the necessary groups exist before running tests
+
         Group.objects.get_or_create(name='Player')
         Group.objects.get_or_create(name='Manager')
 
 
+    # Test successful player registration
     def test_player_registration_success(self):
-        # Test successful player registration
+        
         data = {
             'username': 'player1',
             'password': 'password123',
@@ -28,16 +31,19 @@ class UserRegistrationTests(APITestCase):
         self.assertTrue(player.groups.filter(name='Player').exists())
 
 
+    # Test player registration with missing fields
     def test_player_registration_missing_fields(self):
-        # Test player registration with missing fields
+        
         data = {'username': 'player2'}
         response = self.client.post('/player/register/', data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('error', response.data)
 
 
+
+    # Test successful manager registration
     def test_manager_registration_success(self):
-        # Test successful manager registration
+        
         data = {
             'username': 'manager1',
             'password': 'password123',
@@ -52,8 +58,9 @@ class UserRegistrationTests(APITestCase):
         self.assertTrue(manager.groups.filter(name='Manager').exists())
 
 
+    # Test manager registration with missing fields
     def test_manager_registration_missing_fields(self):
-        # Test manager registration with missing fields
+        
         data = {'username': 'manager2'}
         response = self.client.post('/manager/register/', data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
