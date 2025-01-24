@@ -9,3 +9,11 @@ class UserRegistrationTests(APITestCase):
         # Ensure the necessary groups exist before running tests
         Group.objects.get_or_create(name='Player')
         Group.objects.get_or_create(name='Manager')
+
+    def test_player_registration_success(self):
+        # Test successful player registration
+        data = {
+            'username': 'player1',
+            'password': 'password123',
+            'email': 'player1@example.com',
+        }
