@@ -44,7 +44,7 @@ class LeaderboardTests(APITestCase):
     def test_submit_score_post_failure(self):
         
         data = {'score': 250}
-        response = self.client.post('/submit_score/', data)
+        response = self.client.post('/submit-score/', data)  # Updated endpoint
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('name', response.data)
 
