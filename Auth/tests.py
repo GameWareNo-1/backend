@@ -50,3 +50,11 @@ class UserRegistrationTests(APITestCase):
         manager = CustomUser.objects.get(username=data['username'])
         self.assertEqual(manager.user_type, 'manager')
         self.assertTrue(manager.groups.filter(name='Manager').exists())
+
+
+    def test_manager_registration_missing_fields(self):
+        # Test manager registration with missing fields
+        data = {'username': 'manager2'}
+        response = self.client.post('/manager/register/', data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('error', response.data)
