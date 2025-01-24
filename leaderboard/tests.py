@@ -30,7 +30,7 @@ class LeaderboardTests(APITestCase):
     def test_submit_score_post_success(self):
         
         data = {'name': 'Player6', 'score': 250}
-        response = self.client.post('/submit-score/', data)  # Updated endpoint
+        response = self.client.post('/leaderboard/submit-score/', data)  # Updated endpoint
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['name'], 'Player6')
         self.assertEqual(response.data['score'], 250)
