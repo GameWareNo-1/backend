@@ -38,7 +38,7 @@ class LevelAPITestCase(TestCase):
         response = self.client.post('/levels/', self.invalid_target_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("target", response.data)
-        self.assertIn("Sum of target values must equal 4.", response.data['target'][0])
+        self.assertIn("Sum of target values must be less than 4.", response.data['target'][0])
 
     # Test creating a level with invalid materials field
     def test_create_level_invalid_materials(self):

@@ -9,8 +9,8 @@ class LevelSerializer(serializers.ModelSerializer):
         return value
     
     def validate_target(self, value):
-        if sum(value.values()) != 4:
-            raise ValidationError("Sum of target values must equal 4.")
+        if sum(value.values()) > 4:
+            raise ValidationError("Sum of target values must be less than 4.")
         return value
 
     class Meta:
