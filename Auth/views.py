@@ -1,8 +1,11 @@
-from rest_framework.response import Response
 from django.contrib.auth.models import Group
-from .models import CustomUser
-from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from .models import CustomUser
+
 
 class PlayerRegistrationView(APIView):
     def post(self, request):
@@ -20,7 +23,12 @@ class PlayerRegistrationView(APIView):
         player_group, _ = Group.objects.get_or_create(name='Player')
         player_user.groups.add(player_group)
 
-        return Response({'message': f'Player user {username} created successfully.'}, status=status.HTTP_201_CREATED)
+        refresh = RefreshToken.for_user(player_user)
+        access = refresh.access_token
+        return Response({'message': f'Manager user {username} created successfully.',
+                         'access': str(access),
+                         'refresh': str(refresh)},
+                        status=status.HTTP_201_CREATED)
 
 class ManagerRegistrationView(APIView):
     def post(self, request):
@@ -38,6 +46,8 @@ class ManagerRegistrationView(APIView):
         manager_group, _ = Group.objects.get_or_create(name='manager')
         manager_user.groups.add(manager_group)
 
+        refresh = RefreshToken.for_user(manager_user)
+        access = refresh.access_token
         return Response({'message': f'Manager user {username} created successfully.'}, status=status.HTTP_201_CREATED)
 
     
